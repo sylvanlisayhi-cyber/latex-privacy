@@ -11,7 +11,7 @@ setup(
     description="LaTeX source privacy protector: remove stylistic fingerprints from .tex files before sharing, without changing PDF output",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Sylvan/latex-privacy",
+    url="https://github.com/sylvanlisayhi-cyber/latex-privacy",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://pypi.org/project/texfuscate/"><img src="https://img.shields.io/pypi/v/texfuscate" alt="PyPI"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
-  <a href="https://github.com/Sylvan/latex-privacy"><img src="https://img.shields.io/github/stars/Sylvan/latex-privacy?style=social" alt="Stars"></a>
+  <a href="https://github.com/sylvanlisayhi-cyber/latex-privacy"><img src="https://img.shields.io/github/stars/sylvanlisayhi-cyber/latex-privacy?style=social" alt="Stars"></a>
 </p>
 
 ---
@@ -68,7 +68,7 @@ pip install texfuscate
 ### From source
 
 ```bash
-git clone https://github.com/Sylvan/latex-privacy.git
+git clone https://github.com/sylvanlisayhi-cyber/latex-privacy.git
 cd latex-privacy
 pip install -e .
 ```
