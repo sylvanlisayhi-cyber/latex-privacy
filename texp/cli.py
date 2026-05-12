@@ -5,8 +5,8 @@ from .obfuscator import Obfuscator
 
 def main():
     parser = argparse.ArgumentParser(
-        description="TexFuscate – Privacy protector for LaTeX source: strip stylistic fingerprints from .tex files before sharing.",
-        epilog="Example: texfuscate paper.tex -s high -o paper_obf.tex"
+        description="texp – Privacy protector for LaTeX source: strip stylistic fingerprints from .tex files before sharing.",
+        epilog="Example: texp paper.tex -s high -o paper_obf.tex"
     )
     parser.add_argument("input", help="Input .tex file path")
     parser.add_argument("-o", "--output", help="Output file path (default: input_obf.tex)")
@@ -42,13 +42,16 @@ def main():
     with open(args.input, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Obfuscate
-    obf = Obfuscator(strength=args.strength, seed=args.seed)
-
-    # You could conditionally disable certain transformations by overriding methods,
-    # but for simplicity we run all and rely on internal probabilities.
-    # A more advanced version would skip some transforms if flags are false.
-    # We'll just run all.
+    # Obfuscate — each flag controls whether its transformation runs
+    obf = Obfuscator(
+        strength=args.strength, seed=args.seed,
+        enable_comments=args.comments,
+        enable_spaces=args.spaces,
+        enable_commands=args.commands,
+        enable_options=args.options,
+        enable_quotes=args.quotes,
+        enable_macros=args.macros,
+    )
     obfuscated = obf.obfuscate(content)
 
     # Write output

@@ -5,13 +5,29 @@ import string
 class Obfuscator:
     """Applies various harmless transformations to LaTeX source code."""
 
-    def __init__(self, strength="medium", seed=None):
+    def __init__(self, strength="medium", seed=None,
+                 enable_comments=True, enable_spaces=True,
+                 enable_commands=True, enable_options=True,
+                 enable_quotes=True, enable_macros=True):
         """
         Args:
             strength (str): 'low', 'medium', 'high'
             seed (int): Random seed for reproducibility.
+            enable_comments (bool): Insert random comments.
+            enable_spaces (bool): Add harmless spaces.
+            enable_commands (bool): Replace equivalent commands.
+            enable_options (bool): Shuffle package options.
+            enable_quotes (bool): Vary quotation marks.
+            enable_macros (bool): Inject dummy macros.
         """
         self.strength = strength
+        self.enable_comments = enable_comments
+        self.enable_spaces = enable_spaces
+        self.enable_commands = enable_commands
+        self.enable_options = enable_options
+        self.enable_quotes = enable_quotes
+        self.enable_macros = enable_macros
+
         if seed is not None:
             random.seed(seed)
 
@@ -23,26 +39,21 @@ class Obfuscator:
         }.get(strength, 0.5)
 
     def obfuscate(self, tex_content):
-        """Apply all enabled obfuscations to the LaTeX content."""
+        """Apply enabled obfuscations to the LaTeX content."""
         content = tex_content
 
-        # 1. Insert random comments (always enabled)
-        content = self._insert_random_comments(content)
-
-        # 2. Add harmless spaces / zero-width spaces
-        content = self._add_harmless_spaces(content)
-
-        # 3. Replace equivalent commands
-        content = self._replace_commands(content)
-
-        # 4. Shuffle package options
-        content = self._shuffle_package_options(content)
-
-        # 5. Vary quotation mark styles
-        content = self._vary_quotes(content)
-
-        # 6. Inject and call dummy macros
-        content = self._inject_macros(content)
+        if self.enable_comments:
+            content = self._insert_random_comments(content)
+        if self.enable_spaces:
+            content = self._add_harmless_spaces(content)
+        if self.enable_commands:
+            content = self._replace_commands(content)
+        if self.enable_options:
+            content = self._shuffle_package_options(content)
+        if self.enable_quotes:
+            content = self._vary_quotes(content)
+        if self.enable_macros:
+            content = self._inject_macros(content)
 
         return content
 
