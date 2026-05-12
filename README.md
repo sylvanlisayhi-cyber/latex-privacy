@@ -131,41 +131,45 @@ Same seed = same output. Useful for team collaboration.
 
 填同样的数字，每次结果一样。适合团队协作。
 
-### Enable/disable specific transforms · 开关特定功能
+---
 
-| Command · 命令 | Disables · 关闭 |
-|----------------|-----------------|
-| `texp paper.tex --no-comments -o out.tex` | Random comments · 随机注释 |
-| `texp paper.tex --no-spaces -o out.tex` | Invisible spaces · 零宽空格 |
-| `texp paper.tex --no-commands -o out.tex` | Command swapping · 命令替换 |
-| `texp paper.tex --no-options -o out.tex` | Package option shuffle · 包选项打乱 |
-| `texp paper.tex --no-quotes -o out.tex` | Quote variation · 引号变异 |
-| `texp paper.tex --no-macros -o out.tex` | Dummy macros · 假宏注入 |
-
-Combine them · 也可以组合：
+## 🎯 For most users · 大多数人这样用
 
 ```bash
-# Only comments, nothing else · 只要注释
-texp paper.tex --no-spaces --no-commands --no-options --no-quotes --no-macros -o out.tex
-
-# Spaces + commands only, no comments · 只要空格和命令替换
-texp paper.tex --no-comments --no-quotes -o out.tex
+texp 论文.tex -o 安全版.tex
 ```
 
-### Full parameter reference · 所有参数一览
+**That's it. One line. PDF stays the same, source looks different.**  
+**就一行。PDF 不变，源码变了。**
 
-| Argument · 参数 | Description · 作用 |
-|-----------------|-------------------|
-| `input` | Input `.tex` file (required) · 要处理的 .tex 文件（必填） |
-| `-o, --output` | Output path (default: `input_obf.tex`) · 输出文件名 |
-| `-s, --strength` | `low` / `medium` (default) / `high` · 混淆强度 |
-| `--seed` | Random seed for reproducible output · 随机种子 |
-| `--no-comments` | Disable comment injection · 禁用注释插入 |
-| `--no-spaces` | Disable space insertion · 禁用空格混淆 |
-| `--no-commands` | Disable command replacement · 禁用命令替换 |
-| `--no-options` | Disable package option shuffling · 禁用选项打乱 |
-| `--no-quotes` | Disable quote variation · 禁用引号变异 |
-| `--no-macros` | Disable macro injection · 禁用宏注入 |
+---
+
+## 🔧 Special scenarios · 特殊场景
+
+Only use `--no-*` flags when you have a specific reason.  
+只有在特殊需求时才用 `--no-*` 参数。
+
+| Scenario · 场景 | Command · 命令 |
+|----------------|----------------|
+| Journal forbids `\hspace{0pt}` · 期刊不允许 `\hspace{0pt}` | `texp paper.tex --no-spaces -o out.tex` |
+| Comments only, nothing else · 只要注释，其他都不要 | `texp paper.tex --no-spaces --no-commands --no-options --no-quotes --no-macros -o out.tex` |
+| Spaces only, nothing else · 只要空格混淆，其他都不要 | `texp paper.tex --no-comments --no-commands --no-options --no-quotes --no-macros -o out.tex` |
+| See what changed · 对比改了哪里 | Run with and without flags, diff the outputs · 跑两次对比看区别 |
+
+## 📋 Full parameter reference · 所有参数一览
+
+| 参数 | 作用 |
+|------|------|
+| `input` | 要处理的 `.tex` 文件（必填） |
+| `-o, --output` | 输出文件名（默认在原名后加 `_obf`） |
+| `-s, --strength` | 混淆强度：`low`（低）、`medium`（中，默认）、`high`（高） |
+| `--seed` | 随机种子，填同样的数字每次结果一样 |
+| `--no-comments` | 禁用注释插入 |
+| `--no-spaces` | 禁用空格混淆 |
+| `--no-commands` | 禁用命令替换 |
+| `--no-options` | 禁用包选项打乱 |
+| `--no-quotes` | 禁用引号变异 |
+| `--no-macros` | 禁用宏注入 |
 
 ---
 
