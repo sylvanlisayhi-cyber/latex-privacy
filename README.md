@@ -11,173 +11,184 @@
 
 ---
 
-## 📌 这是什么？ / What is this?
+## 📌 What is this? · 这是什么？
 
-**latex-privacy** 是一个 LaTeX 源码隐私保护工具。
+**latex-privacy** is a LaTeX source privacy tool. Before you share your `.tex` file, run this tool — it inserts harmless noise (random comments, invisible spaces, equivalent command swaps) into the source code. Other people will see different source code, but the compiled PDF stays **exactly the same**.
 
-你写好了论文的 `.tex` 文件，在分享之前跑一下这个工具——它会往源码里插入一堆"无害的噪音"。别人拿到你的 `.tex` 文件，看不出你的个人写作习惯和工具痕迹。但编译出来的 PDF **跟原来一模一样**。
+**latex-privacy** 是一个 LaTeX 源码隐私保护工具。在分享 `.tex` 文件之前跑一下它——它会往源码里插入无害的噪音。别人拿到你的源码看不出你的写作习惯，但 PDF 跟原来一模一样。
 
-> **一句话：源码变样了，PDF 一点没变。**
-
----
-
-## 🚀 什么时候用？ / When to use it?
-
-| 场景 | 说明 |
-|------|------|
-| 把 `.tex` 发给合作者 | 对方能看论文内容，看不出是谁写的 |
-| 上传到 GitHub / Overleaf | 源码里的个人风格特征被抹掉了 |
-| 投稿前清理源码 | 去除编辑器和辅助工具留下的痕迹 |
+> **English:** Source changes, PDF doesn't.  
+> **中文：** 源码变样了，PDF 一点没变。
 
 ---
 
-## 📥 下载与安装 / Download & Install
+## 🚀 When to use · 什么时候用？
 
+| English | 中文 |
+|---------|------|
+| Share `.tex` with collaborators | 把 `.tex` 发给合作者前 |
+| Upload to GitHub / Overleaf | 上传到 GitHub 或 Overleaf 前 |
+| Submit to journals (source review) | 投稿前清理源码 |
+
+---
+
+## 📥 Download & Install · 下载与安装
+
+> ⏱ Takes **2 minutes**, one-time setup.  
 > ⏱ 整个过程只需 **2 分钟**，仅需做一次。
 
-### 第 1 步：下载 / Step 1: Download
+### Step 1 · 第 1 步：Download
 
-打开下面这个网页，点绿色的 **Code** 按钮，再点 **Download ZIP**：
+Open this page, click the green **Code** button, then **Download ZIP**:
 
 👉 **https://github.com/sylvanlisayhi-cyber/latex-privacy**
 
-把下载的 ZIP 解压到你电脑上（比如解压到桌面）。
+Extract the ZIP to your computer (e.g., Desktop).
 
-> 如果你会用 git，也可以直接 `git clone https://github.com/sylvanlisayhi-cyber/latex-privacy.git`
+把下载的 ZIP 解压到你电脑上（比如桌面）。
 
-### 第 2 步：安装 / Step 2: Install
+> If you know git: `git clone https://github.com/sylvanlisayhi-cyber/latex-privacy.git`  
+> 如果你会用 git，也可以直接 clone。
+
+### Step 2 · 第 2 步：Install
+
+Open the `latex-privacy` folder. Click the address bar in File Explorer, type `cmd`, and press Enter.
 
 打开解压后的 `latex-privacy` 文件夹，在地址栏输入 `cmd` 然后按回车。
 
-在弹出的黑色窗口里粘贴这行命令，按回车：
+In the black window, paste this command and press Enter:
+
+在黑色窗口里粘贴这行命令，按回车：
 
 ```bash
 pip install -e .
 ```
 
-> **如果提示 `pip` 不是命令：** 说明你没装 Python。去 [python.org](https://python.org) 下载 Python（3.7 以上），安装时**务必勾选 "Add Python to PATH"**，然后重试这行命令。
+> **If `pip` is not found:** Install Python 3.7+ from [python.org](https://python.org), **check "Add Python to PATH"**, then retry.  
+> **如果提示 `pip` 不是命令：** 去 python.org 下载 Python，安装时**务必勾选 "Add Python to PATH"**。
+
+Done. Now you can use `texp` from the command line.
 
 安装成功后，你就可以在命令行使用 `texp` 命令了。
 
 ---
 
-## ⚡ 快速上手 / Quick Start
+## ⚡ Quick Start · 快速上手
 
 ```bash
-# 基本用法（中强度）
-texp 我的论文.tex -o 我的论文_安全版.tex
+# Medium strength (default) · 中强度（默认）
+texp paper.tex -o paper_obf.tex
 
-# 高强度
-texp 我的论文.tex -s high -o 我的论文_安全版.tex
+# High strength · 高强度
+texp paper.tex -s high -o paper_obf.tex
 
-# 低强度
-texp 我的论文.tex -s low -o 我的论文_安全版.tex
+# Low strength · 低强度
+texp paper.tex -s low -o paper_obf.tex
 ```
 
-运行之后，文件夹里会出现一个 `我的论文_安全版.tex`。用这个文件编译 PDF：
+Compile the output · 编译输出文件：
 
 ```bash
-pdflatex 我的论文_安全版.tex
+pdflatex paper_obf.tex
 ```
 
-**对比一下：** 原版 PDF 和这个 PDF 完全一样。但两个 `.tex` 文件的内容不一样了。
+**Compare:** The PDF looks identical. The `.tex` files look different.  
+**对比一下：** PDF 完全一样，但两个 `.tex` 文件不一样了。
 
 ---
 
-## 📖 命令大全 / All Commands
+## 📖 All Commands · 命令大全
 
-### 查看帮助
+### View help · 查看帮助
 
 ```bash
 texp --help
 ```
 
-### 基础用法
-
-| 命令 | 说明 |
-|------|------|
-| `texp paper.tex -o paper_obf.tex` | 中强度混淆（默认），输出到新文件 |
-| `texp paper.tex -o paper_obf.tex` | 不写 `-s` 就是中强度 |
-| `texp paper.tex` | 省略 `-o`，自动生成 `paper_obf.tex` |
-
-### 混淆强度
+### Basic usage · 基础用法
 
 ```bash
-texp paper.tex -s low    -o out.tex    # 低强度 — 改动少
-texp paper.tex -s medium -o out.tex    # 中强度 — 适中（默认）
-texp paper.tex -s high   -o out.tex    # 高强度 — 改动最多
+texp paper.tex -o paper_obf.tex    # Medium (default) · 中强度
+texp paper.tex                      # Auto output name · 自动命名
 ```
 
-强度越高，源码改动越大，隐私保护效果越好。编译时间不受影响，PDF 始终不变。
+### Strength levels · 强度选择
 
-### 固定随机种子
+| Command · 命令 | Effect · 效果 |
+|----------------|---------------|
+| `texp paper.tex -s low -o out.tex` | Minimal changes · 改动较少 |
+| `texp paper.tex -s medium -o out.tex` | Balanced (default) · 适中（默认） |
+| `texp paper.tex -s high -o out.tex` | Maximum noise · 改动最多 |
+
+### Reproducible output · 固定随机种子
 
 ```bash
 texp paper.tex --seed 42 -o out1.tex
-texp paper.tex --seed 42 -o out2.tex
+texp paper.tex --seed 42 -o out2.tex    # Same result · 结果一样
 ```
 
-两次运行结果完全一样。适合团队协作时大家用同一个 seed，或者想复现某个结果。
+Same seed = same output. Useful for team collaboration.
 
-### 只开部分功能
+填同样的数字，每次结果一样。适合团队协作。
 
-如果你只想用某几种混淆手法，可以用 `--no-*` 参数关掉不需要的：
+### Enable/disable specific transforms · 开关特定功能
 
-| 命令 | 效果 |
-|------|------|
-| `texp paper.tex --no-comments -o out.tex` | 不加注释 |
-| `texp paper.tex --no-spaces -o out.tex` | 不加空格 |
-| `texp paper.tex --no-commands -o out.tex` | 不替换命令 |
-| `texp paper.tex --no-options -o out.tex` | 不打乱包选项 |
-| `texp paper.tex --no-quotes -o out.tex` | 不变异引号 |
-| `texp paper.tex --no-macros -o out.tex` | 不注入假宏 |
+| Command · 命令 | Disables · 关闭 |
+|----------------|-----------------|
+| `texp paper.tex --no-comments -o out.tex` | Random comments · 随机注释 |
+| `texp paper.tex --no-spaces -o out.tex` | Invisible spaces · 零宽空格 |
+| `texp paper.tex --no-commands -o out.tex` | Command swapping · 命令替换 |
+| `texp paper.tex --no-options -o out.tex` | Package option shuffle · 包选项打乱 |
+| `texp paper.tex --no-quotes -o out.tex` | Quote variation · 引号变异 |
+| `texp paper.tex --no-macros -o out.tex` | Dummy macros · 假宏注入 |
 
-也可以组合使用：
+Combine them · 也可以组合：
 
 ```bash
-# 只加注释，其他全部关掉
+# Only comments, nothing else · 只要注释
 texp paper.tex --no-spaces --no-commands --no-options --no-quotes --no-macros -o out.tex
 
-# 只要空格和命令替换，不要注释和引号
+# Spaces + commands only, no comments · 只要空格和命令替换
 texp paper.tex --no-comments --no-quotes -o out.tex
 ```
 
-### 所有参数一览
+### Full parameter reference · 所有参数一览
 
-| 参数 | 作用 |
-|------|------|
-| `input` | 要处理的 `.tex` 文件（必填） |
-| `-o, --output` | 输出文件名（默认在原名后加 `_obf`） |
-| `-s, --strength` | 混淆强度：`low`（低）、`medium`（中，默认）、`high`（高） |
-| `--seed` | 随机种子，填同样数字每次结果一样 |
-| `--no-comments` | 禁用注释插入 |
-| `--no-spaces` | 禁用空格混淆 |
-| `--no-commands` | 禁用命令替换 |
-| `--no-options` | 禁用它选项打乱 |
-| `--no-quotes` | 禁用引号变异 |
-| `--no-macros` | 禁用宏注入 |
-
----
-
-## 🧠 它到底改了源码的什么？ / How it works
-
-| 手法 | 例子（编译后看不见） | 作用 |
-|------|---------------------|------|
-| 插入随机注释 | `\section{Intro} % x9k2m` | 打乱行级统计特征 |
-| 加零宽空格 | `\hspace{0pt}` | 干扰字符位置分析 |
-| 加转义空格 | `word.` → `word\ .` | 改变空格表示方式 |
-| 替换等效命令 | `\textbf{xxx}` ↔ `{\bf xxx}` | 抹平命令使用偏好 |
-| 打乱包选项 | 随机排列 `\usepackage[...]` 里的顺序 | 消除顺序特征 |
-| 变异引号 | `"text"` ↔ `` ``text'' `` | 增加风格不确定性 |
-| 注入假宏 | 定义 `\def\zzx{}` 并在文中调用 | 增加源码噪声 |
-
-**所有改法都是 LaTeX 编译器直接忽略的东西，所以 PDF 一点不变。**
+| Argument · 参数 | Description · 作用 |
+|-----------------|-------------------|
+| `input` | Input `.tex` file (required) · 要处理的 .tex 文件（必填） |
+| `-o, --output` | Output path (default: `input_obf.tex`) · 输出文件名 |
+| `-s, --strength` | `low` / `medium` (default) / `high` · 混淆强度 |
+| `--seed` | Random seed for reproducible output · 随机种子 |
+| `--no-comments` | Disable comment injection · 禁用注释插入 |
+| `--no-spaces` | Disable space insertion · 禁用空格混淆 |
+| `--no-commands` | Disable command replacement · 禁用命令替换 |
+| `--no-options` | Disable package option shuffling · 禁用选项打乱 |
+| `--no-quotes` | Disable quote variation · 禁用引号变异 |
+| `--no-macros` | Disable macro injection · 禁用宏注入 |
 
 ---
 
-## 📝 完整示例 / Full Example
+## 🧠 How it works · 原理
 
-**混淆前 / Before:**
+| Technique · 手法 | Example · 例子 | Effect · 作用 |
+|------------------|---------------|--------------|
+| Random comments · 随机注释 | `\section{Intro} % x9k2m` | Break line-level patterns · 打乱行级特征 |
+| Zero-width spaces · 零宽空格 | `\hspace{0pt}` | Disrupt position fingerprinting · 干扰位置分析 |
+| Escaped spaces · 转义空格 | `word.` → `word\ .` | Vary whitespace style · 改变空格表示 |
+| Command substitution · 命令替换 | `\textbf{xxx}` ↔ `{\bf xxx}` | Normalize command preferences · 抹平命令偏好 |
+| Package option shuffle · 选项打乱 | Randomize `\usepackage[...]` order | Remove ordering signatures · 消除顺序特征 |
+| Quote variation · 引号变异 | `"text"` ↔ `` ``text'' `` | Add stylistic ambiguity · 增加风格不确定性 |
+| Dummy macros · 假宏注入 | `\def\zzx{}` + `\zzx` | Pad statistical features · 增加源码噪声 |
+
+**All changes are ignored by the LaTeX compiler. The PDF stays identical.**  
+**所有改法都被 LaTeX 编译器忽略，PDF 完全不变。**
+
+---
+
+## 📝 Full Example · 完整示例
+
+**Before · 混淆前:**
 
 ```latex
 \documentclass{article}
@@ -186,7 +197,7 @@ This is a \textbf{test}. See \cite{key}.
 \end{document}
 ```
 
-**运行 `texp paper.tex -o paper_obf.tex` 后 / After:**
+**After `texp paper.tex -o paper_obf.tex` · 混淆后:**
 
 ```latex
 \documentclass{article} % k9m2n
@@ -197,39 +208,44 @@ This is a \textbf{test} \hspace{0pt}. See \citep{key}. % r5t8v
 \zzx
 ```
 
-**编译 / Compile:**
+**Compile · 编译:**
 
 ```bash
 pdflatex paper_obf.tex
 ```
 
-跟原版 PDF 一模一样。
+Identical PDF. Different source.  
+PDF 一样，源码不一样了。
 
 ---
 
-## ⚠️ 注意事项 / Limitations
+## ⚠️ Limitations · 注意事项
 
-| 英文 | 中文 |
-|------|------|
+| English | 中文 |
+|---------|------|
 | Only works on **LaTeX source**, not compiled PDF text. | **只改源码**，不改 PDF 里的文字。 |
 | **Not encryption** — a motivated person could reverse it. | 混淆**不是加密**，想查的人可以还原。 |
-| Output files are **larger**, but compile time is unchanged. | 输出文件**变大**，但编译时间不变。 |
-| If someone checks the **PDF content** (not the .tex), this tool does nothing. | 如果别人检查的是 **PDF 内容**（不是 .tex 源码），这工具没效果。 |
+| Output files are **larger**, but compile time is unchanged. | 输出文件**变大**，编译时间不变。 |
+| If someone checks the **PDF content** (not the .tex), this tool does nothing. | 如果检查的是 **PDF 内容**，此工具无效。 |
 
 ---
 
-## 🤝 贡献 / Contributing
+## 🤝 Contributing · 贡献
 
-欢迎提交 PR！你有新的混淆思路（不改变语义的前提下）可以直接提。
+PRs welcome — especially new obfuscation strategies that preserve semantics.
+
+欢迎提交 PR！特别是新的混淆策略，只要不改变语义。
 
 ---
 
-## 📄 许可证 / License
+## 📄 License · 许可证
 
 MIT
 
 ---
 
-## ⚖️ 免责声明 / Disclaimer
+## ⚖️ Disclaimer · 免责声明
 
-这是一个**隐私保护工具**，用于保护源码层面的写作风格不被分析。它不是也不用于学术不端、抄袭或规避诚信政策。使用者自行负责。
+This is a **privacy tool** for protecting source-level writing style. It is not intended for academic dishonesty or plagiarism. Users are responsible for complying with their institution's code of conduct.
+
+这是一个**隐私保护工具**，用于保护源码层面的写作风格不被分析。它不是也不用于学术不端或抄袭。使用者自行负责。
